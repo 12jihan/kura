@@ -1,0 +1,6 @@
+[submodule "kura-frontend"]
+	path = kura-frontend
+	url = https://github.com/12jihan/kura-frontend
+[submodule "kura-backend"]
+	path = kura-backend
+	url = https://github.com/12jihan/kura-backend

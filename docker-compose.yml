@@ -1,0 +1,67 @@
+name: kura-ai
+
+services:
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.prod.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - frontend
+      - backend
+    networks:
+      - kura-network
+
+  frontend:
+    build:
+      context: ./kura-frontend
+      dockerfile: Dockerfile
+    networks:
+      - kura-network
+
+  backend:
+    build:
+      context: ./kura-backend
+      dockerfile: Dockerfile
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=postgresql://user:password@db:5432/myapp
+    depends_on:
+      - database
+    networks:
+      - kura-network
+
+  database:
+    image: pgvector/pgvector:pg16
+    container_name: kura-db
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=kura-db
+    volumes:
+      - kura-db:/var/lib/postgresql/data
+      - ./db:/docker-entrypoint-initdb.d
+    restart: unless-stopped
+    networks:
+      - kura-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U admin -d kura-db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    mem_limit: 512M
+    cpus: 1.0
+
+volumes:
+  kura-db:
+    driver: local
+
+networks:
+  kura-network:
+    driver: bridge
