@@ -12,6 +12,11 @@ help:
 	@echo "  make sync     - add + commit + push, end to end (m=\"msg\")"
 	@echo "  make pull     - pull parent and update submodules to recorded SHAs"
 	@echo "  make reset-submodules - hard-reset submodules to parent's pointers"
+	@echo "  make dev      - start up kura development environment"
+	@echo "  make prod     - start up kura production environment"
+	@echo "  make dev-down - shut down kura development environment"
+	@echo "  make prod-down - shut down kura production environment"
+	@echo "  make down-all - shut down all environments and prune image"
 
 status:
 	@echo "── parent ──"
@@ -41,3 +46,20 @@ pull:
 
 reset-submodules:
 	@git submodule update --init --recursive --force
+
+dev:
+	@docker compose -p kura-dev -f docker-compose.yml -f docker-compose.dev.yml up --build
+
+prod:
+	@docker compose -p kura-dev -f docker-compose.yml up --build
+
+dev-down:
+	@docker compose -p kura-dev down -v 
+
+prod-down:
+	@docker compose -p kura-prod down -v 
+
+down-all:
+	@docker compose -p kura-dev down -v 
+	@docker compose -p kura-prod down -v 
+	@docker image prune -f
