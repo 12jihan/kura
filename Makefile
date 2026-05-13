@@ -15,21 +15,21 @@ help:
 
 status:
 	@echo "── parent ──"
-	@git status --short
+	@git status
 	@echo
 	@echo "── submodules ──"
-	@git submodule foreach --quiet 'echo "▸ $$name"; git status --short; echo'
+	@git submodule foreach 'echo "▸ $$name"; git status; echo'
 
 add:
-	@git submodule foreach --quiet 'git add .'
+	@git submodule foreach 'git add .'
 	@git add .
 
 commit:
-	@git submodule foreach --quiet 'git diff --cached --quiet || git commit -m "$(m)"'
+	@git submodule foreach --quiet 'git diff --cached || git commit -m "$(m)"'
 	@git diff --cached --quiet || git commit -m "$(m)"
 
 push:
-	@git submodule foreach --quiet 'git push'
+	@git submodule foreach 'git push'
 	@git push
 
 sync: add commit push
