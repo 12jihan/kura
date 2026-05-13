@@ -21,8 +21,8 @@ status:
 	@git submodule foreach --quiet 'echo "▸ $$name"; git status --short; echo'
 
 add:
-	@git submodule foreach --quiet 'git add -A'
-	@git add -A
+	@git submodule foreach --quiet 'git add .'
+	@git add .
 
 commit:
 	@git submodule foreach --quiet 'git diff --cached --quiet || git commit -m "$(m)"'
