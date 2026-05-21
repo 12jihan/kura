@@ -23,7 +23,7 @@ services:
       - ./kura-frontend/tsconfig.app.json:/app/tsconfig.app.json
       - /app/node_modules
     environment:
-      - CHOKIDAR_USEPOLLING=true  # Required for file watchin in Docker
+      - CHOKIDAR_USEPOLLING=true  # Required for file watching in Docker
       - WATCHPACK_POLLING=true    # Alternative polling option
       - NG_CLI_ANALYTICS=false
     stdin_open: true
