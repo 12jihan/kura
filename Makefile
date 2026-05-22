@@ -35,7 +35,7 @@ add:
 
 commit:
 	@git submodule foreach 'git commit -m "$(m)" || true'
-	@git git commit -m "$(m)"
+	@git commit -m "$(m)"
 
 push:
 	@git submodule foreach 'git push'
