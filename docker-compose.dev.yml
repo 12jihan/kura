@@ -16,6 +16,8 @@ services:
       dockerfile: Dockerfile.dev
     networks:
       - kura-network-dev
+    env_file:
+      - ./kura-backend/.env
     volumes:
       - ./kura-frontend/src:/app/src
       - ./kura-frontend/angular.json:/app/angular.json
@@ -42,11 +44,19 @@ services:
       
     environment:
       - NODE_ENV=development
-      - DATABASE_URL=postgresql://user:password@db:5432/myapp
+      - PG_HOST=database
+      - PG_PORT=5432
+      - PG_USER=admin
+      - PG_PASS=password
+      - PG_NAME=kura-db
+      - DATABASE_URL=postgresql://admin:password@database:5432/kura-db
     depends_on:
-      - database
+      database:
+        condition: service_healthy
     networks:
       - kura-network-dev
+    ports:
+      - "3000:3000"
 
   database:
     image: pgvector/pgvector:pg16

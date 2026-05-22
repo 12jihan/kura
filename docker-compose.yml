@@ -26,7 +26,12 @@ services:
       dockerfile: Dockerfile
     environment:
       - NODE_ENV=production
-      - DATABASE_URL=postgresql://user:password@db:5432/myapp
+      - PG_HOST=database
+      - PG_PORT=5432
+      - PG_USER=admin
+      - PG_PASS=password
+      - PG_NAME=kura-db
+      - DATABASE_URL=postgresql://user:password@db:5432/kura-db
     depends_on:
       - database
     networks:
