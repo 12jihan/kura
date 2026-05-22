@@ -30,8 +30,8 @@ add:
 	@git add .
 
 commit:
-	@git submodule foreach --quiet 'git diff --cached || git commit -m "$(m)"'
-	@git diff --cached --quiet || git commit -m "$(m)"
+	@git submodule foreach --quiet 'git commit -m "$(m)"'
+	@git git commit -m "$(m)"
 
 push:
 	@git submodule foreach 'git push'
