@@ -26,11 +26,15 @@ status:
 	@git submodule foreach 'echo "▸ $$name"; git status; echo'
 
 add:
-	@git submodule foreach 'git add .'
+	@echo "Staging submodules..."
+	@git submodule foreach 'git add . || true'
+	@echo "Staging parent..."
 	@git add .
+	@echo "Status check:"
+	@git status
 
 commit:
-	@git submodule foreach --quiet 'git commit -m "$(m)"'
+	@git submodule foreach 'git commit -m "$(m)" || true'
 	@git git commit -m "$(m)"
 
 push:
@@ -42,7 +46,7 @@ sync: add commit push
 
 pull:
 	@git pull
-	@git submodule update --init --recursive
+	@git submodule update --init --recursive --remote --merge
 
 reset-submodules:
 	@git submodule update --init --recursive --force
