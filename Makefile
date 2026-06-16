@@ -1,7 +1,7 @@
 # Default commit message — override with `make push m="your message"`
 m ?= wip: sync
 
-.PHONY: help status add commit push pull branch sync reset-submodules
+.PHONY: help status add commit push pull checkout branch sync reset-submodules
 
 help:
 	@echo "Git Targets:"
@@ -11,6 +11,7 @@ help:
 	@echo "  make push     - push submodules then parent"
 	@echo "  make sync     - add + commit + push, end to end (m=\"msg\")"
 	@echo "  make pull     - pull parent and update submodules to recorded SHAs"
+	@echo "  make checkout - checkout a branch (name=\"existing-branch-name\")"
 	@echo "  make branch   - create a new branch (name=\"your-new-branch-name\")"
 	@echo "  make reset-submodules - hard-reset submodules to parent's pointers"
 	@echo " "
@@ -49,6 +50,16 @@ push:
 pull:
 	@git pull
 	@git submodule update --init --recursive --remote --merge
+
+checkout:
+	@if [ -z "$(name)" ]; then \
+		echo "Error: Branch name is required. Usage: make checkout name=your-branch-name"; \
+		exit 1; \
+	fi
+	@echo "Switching to $(name) in main repository..."
+	git checkout $(name)
+	@echo "Switching to $(name) in all submodules..."
+	git submodule foreach 'git checkout $(name) || true'
 
 branch:
 	@if [ -z "$(name)" ]; then \
