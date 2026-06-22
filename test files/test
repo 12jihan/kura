@@ -1,6 +1,6 @@
 WITH target_user AS (
   -- UPDATE YOUR USER ID HERE ONCE
-  SELECT '1ab1fd58-688c-4c45-b14f-295d8aae550f'::uuid AS uid
+  SELECT '1e7d2462-af5d-4276-98cf-19c6024a44b2'::uuid AS uid
 )
 INSERT INTO cards (user_id, content, original_content, platform, status, is_edited)
 SELECT 
