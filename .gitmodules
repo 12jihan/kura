@@ -4,3 +4,6 @@
 [submodule "kura-backend"]
 	path = kura-backend
 	url = https://github.com/12jihan/kura-backend
+[submodule "kura-ai-service"]
+	path = kura-ai-service
+	url = git@github.com:12jihan/kura-ai-service.git

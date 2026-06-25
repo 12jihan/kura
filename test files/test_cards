@@ -1,0 +1,61 @@
+INSERT INTO cards (user_id, content, original_content, platform, status, is_edited)
+VALUES 
+  -- 1. Active & Unedited (Ready for the feed)
+  ('e7bc51a5-a389-47de-900b-91cbe6a32c17', 
+   'Just deployed our new AI feature. Super excited for the future of content marketing!', 
+   'Just deployed our new AI feature. Super excited for the future of content marketing!', 
+   'LinkedIn', 'active', FALSE),
+
+  -- 2. Active & Edited (User tweaked the AI generation)
+  ('e7bc51a5-a389-47de-900b-91cbe6a32c17', 
+   '5 tips for better Angular state management. #1: Use Signals instead of RxJS where possible. 🚀', 
+   'Here are some tips for Angular state management: use Signals.', 
+   'LinkedIn', 'active', TRUE),
+
+  -- 3. Scheduled & Unedited
+  ('e7bc51a5-a389-47de-900b-91cbe6a32c17', 
+   'Consistency is the hardest part of building a personal brand. Let automation do the heavy lifting.', 
+   'Consistency is the hardest part of building a personal brand. Let automation do the heavy lifting.', 
+   'LinkedIn', 'scheduled', FALSE),
+
+  -- 4. Scheduled & Edited
+  ('e7bc51a5-a389-47de-900b-91cbe6a32c17', 
+   'Stop writing everything from scratch. 🛑 Use AI to draft, use your brain to edit.', 
+   'Use AI to write your posts.', 
+   'LinkedIn', 'scheduled', TRUE),
+
+  -- 5. Posted (History/Archive)
+  ('e7bc51a5-a389-47de-900b-91cbe6a32c17', 
+   'My thoughts on the latest generative AI models: They are tools, not replacements.', 
+   'My thoughts on the latest generative AI models: They are tools, not replacements.', 
+   'LinkedIn', 'posted', FALSE),
+
+  -- 6. Dismissed (User trashed this draft)
+  ('e7bc51a5-a389-47de-900b-91cbe6a32c17', 
+   'Here is a generic post about grinding 24/7.', 
+   'Here is a generic post about grinding 24/7.', 
+   'LinkedIn', 'dismissed', FALSE),
+
+  -- 7. Active & Unedited
+  ('e7bc51a5-a389-47de-900b-91cbe6a32c17', 
+   'The best API design is the one your frontend developers never have to ask questions about.', 
+   'The best API design is the one your frontend developers never have to ask questions about.', 
+   'LinkedIn', 'active', FALSE),
+
+  -- 8. Scheduled & Unedited
+  ('e7bc51a5-a389-47de-900b-91cbe6a32c17', 
+   'PostgreSQL + Express + Angular = A seriously solid stack for building SaaS apps fast.', 
+   'PostgreSQL + Express + Angular = A seriously solid stack for building SaaS apps fast.', 
+   'LinkedIn', 'scheduled', FALSE),
+
+  -- 9. Posted & Edited
+  ('e7bc51a5-a389-47de-900b-91cbe6a32c17', 
+   'We just crossed 100 users on Kura! Thanks to everyone who has given us feedback.', 
+   'We reached a milestone today.', 
+   'LinkedIn', 'posted', TRUE),
+
+  -- 10. Dismissed & Unedited
+  ('e7bc51a5-a389-47de-900b-91cbe6a32c17', 
+   'Buy my new course on how to make courses!', 
+   'Buy my new course on how to make courses!', 
+   'LinkedIn', 'dismissed', FALSE);

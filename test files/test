@@ -1,0 +1,65 @@
+WITH target_user AS (
+  -- UPDATE YOUR USER ID HERE ONCE
+  SELECT '1e7d2462-af5d-4276-98cf-19c6024a44b2'::uuid AS uid
+)
+INSERT INTO cards (user_id, content, original_content, platform, status, is_edited)
+SELECT 
+  target_user.uid, 
+  data.content, 
+  data.original_content, 
+  data.platform, 
+  data.status, 
+  data.is_edited
+FROM target_user
+CROSS JOIN (
+	VALUES 
+	  -- 1. Active & Unedited (Ready for the feed)
+	  ('Just deployed our new AI feature. Super excited for the future of content marketing!', 
+	   'Just deployed our new AI feature. Super excited for the future of content marketing!', 
+	   'LinkedIn', 'active', FALSE),
+	
+	  -- 2. Active & Edited (User tweaked the AI generation)
+	  ('5 tips for better Angular state management. #1: Use Signals instead of RxJS where possible. 🚀', 
+	   'Here are some tips for Angular state management: use Signals.', 
+	   'LinkedIn', 'active', TRUE),
+	
+	  -- 3. Scheduled & Unedited
+	  ('Consistency is the hardest part of buialding a personal brand. Let automation do the heavy lifting.', 
+	   'Consistency is the hardest part of building a personal brand. Let automation do the heavy lifting.', 
+	   'LinkedIn', 'scheduled', FALSE),
+	
+	  -- 4. Scheduled & Edited
+	  ('Stop writing everything from scratch. 🛑 Use AI to draft, use your brain to edit.', 
+	   'Use AI to write your posts.', 
+	   'LinkedIn', 'scheduled', TRUE),
+	
+	  -- 5. Posted (History/Archive)
+	  ('My thoughts on the latest generative AI models: They are tools, not replacements.', 
+	   'My thoughts on the latest generative AI models: They are tools, not replacements.', 
+	   'LinkedIn', 'posted', FALSE),
+	
+	  -- 6. Dismissed (User trashed this draft)
+	  ('Here is a generic post about grinding 24/7.', 
+	   'Here is a generic post about grinding 24/7.', 
+	   'LinkedIn', 'dismissed', FALSE),
+	
+	  -- 7. Active & Unedited
+	  ('The best API design is the one your frontend developers never have to ask questions about.', 
+	   'The best API design is the one your frontend developers never have to ask questions about.', 
+	   'LinkedIn', 'active', FALSE),
+	
+	  -- 8. Scheduled & Unedited
+	  ('PostgreSQL + Express + Angular = A seriously solid stack for building SaaS apps fast.', 
+	   'PostgreSQL + Express + Angular = A seriously solid stack for building SaaS apps fast.', 
+	   'LinkedIn', 'scheduled', FALSE),
+	
+	  -- 9. Posted & Edited
+	  ('We just crossed 100 users on Kura! Thanks to everyone who has given us feedback.', 
+	   'We reached a milestone today.', 
+	   'LinkedIn', 'posted', TRUE),
+	
+	  -- 10. Dismissed & Unedited
+	  ('Buy my new course on how to make courses!', 
+	   'Buy my new course on how to make courses!', 
+	   'LinkedIn', 'dismissed', FALSE)
+) AS data(content, original_content, platform, status, is_edited);

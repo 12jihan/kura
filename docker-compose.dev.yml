@@ -42,6 +42,9 @@ services:
       - ./kura-backend/tsconfig.json:/app/tsconfig.json
       - /app/node_modules
       
+    env_file:
+      - ./kura-backend/.env
+
     environment:
       - NODE_ENV=development
       - PG_HOST=database
