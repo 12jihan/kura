@@ -1,0 +1,36 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+scrape_configs:
+  # Monitor Prometheus
+  - job_name: "kura-prometheus"
+    static_configs:
+      - targets: ["localhost:9090"]
+
+  # Monitor node app
+  - job_name: "kura-frontend"
+    scrape_interval: 5s
+    metrics_path: "/metrics"
+    static_configs:
+      - targets: ["frontend:3000"]
+        labels:
+          environment: "production"
+
+  # Monitor node app
+  - job_name: "kura-backend"
+    scrape_interval: 5s
+    metrics_path: "/metrics"
+    static_configs:
+      - targets: ["backend:3000"]
+        labels:
+          environment: "production"
+
+  # Monitor AI Service
+  - job_name: "kura-ai-service"
+    scrape_interval: 5s
+    metrics_path: "/metrics"
+    static_configs:
+      - targets: ["backend:3000"]
+        labels:
+          environment: "production"
